@@ -20,6 +20,10 @@ Hardware Components
     AM2302 environment sensor (connected to gpio 2)
     2x momentary switch buttons (connected to gpio 4 and gpio 7)
 
+Please note that if you would like the build the device, you will need to aquire
+4 M2.5 (metric) 10mm screws, which will fit the provided housing. You will also need
+to add your wifi configuration in the utils/wifiTime.py.
+
 Credits
 
 The code in this project is a combination of original work and code reused from 
