@@ -1,4 +1,4 @@
-# Resource taken directly from https://github.com/MZachmann/PicoPendant
+# Resource from PicoPendant
 
 # the provided font python files just take up too much RAM
 # so this parser extracts the binary data without loading the python source

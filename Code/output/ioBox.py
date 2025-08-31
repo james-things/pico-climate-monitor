@@ -1,11 +1,7 @@
-# Modified resource from https://github.com/MZachmann/PicoPendant
-
-# an iobox is the basic thing drawn on-screen for lack of more sophisticaed stuff
-# it has text, a font, and colors
-# optional rectangle and justification
+# Modified resource from PicoPendant
+# Simple container for drawing text
 from fonts.fontDrawer import FontDrawer
 from fonts.typeFont import TypeFont
-from output.colorSet import SolidClr
 
 
 class IoBox:

@@ -1,11 +1,9 @@
-# Modified version of resource from https://github.com/MZachmann/PicoPendant,
-# the FontDrawer has been altered to draw the font at 4x the original size, to
+# Modified version of resource from PicoPendant. The FontDrawer 
+# has been altered to draw the font at 4x the original size, to
 # help in managing memory while drawing large fonts.
 
 # an object for drawing characters created from TrueType
 # given a font this creates a lookup table to the character metadata
-
-from fonts.typeFont import TypeFont
 
 # a simple struct to convert indexes to names
 class Datum() :
@@ -20,7 +18,7 @@ class Datum() :
 # on init it creates a lookup table to the font metadata by character
 class FontDrawer(object) :
     def __init__(self, font, oled ) :
-        self.font : TypeFont = font
+        self.font = font
         self.oled = oled
         self.chartodata = { }
         numdata = len(font.info)
@@ -38,6 +36,7 @@ class FontDrawer(object) :
         if theChar == 32:  # space character
             return self.emWidth * scale_factor
         if not theChar in self.chartodata.keys():
+            print("char not found")
             return 0
         idx = self.chartodata[theChar]
         advance = 0
@@ -88,6 +87,8 @@ class FontDrawer(object) :
     # for positioning
     def DrawString(self, text, xpos, ypos, colors, shrink, buffer = None) :
         tbt = text.encode('UTF-8')
+        print(tbt)
+        print(text)
         xnow = xpos
         ynow = ypos
         for chars in tbt :

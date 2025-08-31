@@ -1,7 +1,3 @@
-# Took the original color set from https://github.com/MZachmann/PicoPendant and added
-# several additional colors, as well as a function which handles the color coding for
-# outputs related to the sensor readings.
-
 # color is 5-6-5 stored
 
 DarkTheme = {
@@ -36,6 +32,7 @@ SolidClr = {
 
 # function to get color by value for sensor readings
 def get_color_for_value(value, value_type):
+    value = int(float(value))
     if value_type == "temperature":
         if value < 60:
             return SolidClr['lightblue']
@@ -45,8 +42,6 @@ def get_color_for_value(value, value_type):
             return SolidClr['yellow']
         elif 80 <= value < 90:
             return SolidClr['orange']
-        elif 90 <= value:
-            return SolidClr['red']
         else:
             return SolidClr['red']
     elif value_type == "humidity":

@@ -1,12 +1,9 @@
-# A modidified version of the LCD driver from https://github.com/MZachmann/PicoPendant
+# A modified version of the LCD driver from PicoPendant
 # which incorporates an implementation to draw a line between two points
 from machine import Pin, SPI, PWM
 import framebuf
-from utime import sleep_ms, sleep_us
-from util.globalStorage import GlobalObjects
-from fonts.fontCache import FontCache
-from fonts.fontDrawer import FontDrawer
-from machine import disable_irq, enable_irq
+from utime import sleep_ms #, sleep_us
+# from machine import disable_irq, enable_irq
 
 # --------------------------------------------------------------------------
 # a small amount of support for the waveshare output Pico-ResTouch-LCD-3.5
@@ -24,16 +21,13 @@ LCD_RST = 15
 TP_CS = 16
 TP_IRQ = 17
 
-
-# a single instance is created when this file is imported
-def GlobalLcd():
-    return _GlobalLcd
-
-
 # the output class and some helpers
-class LCD3inch5:
+class LcdDriver:
 
-    def __init__(self):
+    def __init__(self, **kwargs): #, cache, drawer):
+        self.fontManager = kwargs.get('fontmanager', None)
+        # self.fontCache = self.fontManager.fontCache if self.fontManager else None # Doesn't exist, currently
+
         # RGB565
         self.RED = 0x07E0
         self.GREEN = 0x001f
@@ -74,9 +68,7 @@ class LCD3inch5:
         self.bufwidth = 480
         self.displayWidth = 480  # physical output dimensions
         self.displayHeight = 320
-        self.buffer = bytearray(
-            self.bufwidth * self.bufheight * 2)  # GlobalObjects()['dispBuffer'] # bytearray(self.bufwidth *
-        # self.bufheight * 2)
+        self.buffer = bytearray(self.bufwidth * self.bufheight * 2)  # Once drew from GlobalObjects()['dispBuffer'] ? - in case relevant in future
         self.set_frame_size(self.bufwidth, self.bufheight)  # default size
         self._pwm = PWM(Pin(LCD_BL))
         self._init_display()
@@ -227,7 +219,7 @@ class LCD3inch5:
 
         self.show_area(x_min, y_min, x_max, y_max)
 
-    def draw_string_box(self, drawer: FontDrawer, text, toffset, x, y, width, height, txtColor, bkgdColor, shrink):
+    def draw_string_box(self, drawer, text, toffset, x, y, width, height, txtColor, bkgdColor, shrink):
         ''' draw a string of the length required to fit it '''
         ulen = drawer.GetStringWidth(text)
         if width <= 0:
@@ -242,7 +234,7 @@ class LCD3inch5:
         self.show_area(x, y, x + self.width - 1, y + self.height - 1)
         self.set_frame_size(self.bufwidth, self.bufheight)
 
-    def draw_string_cached(self, drawer: FontDrawer, text, toffset, x, y, width, height, bkgdColor):
+    def draw_string_cached(self, drawer, text, toffset, x, y, width, height, bkgdColor):
         ''' draw a string of the length required to fit it '''
         ulen = drawer.GetStringWidth(text)
         if width <= 0:
@@ -253,7 +245,7 @@ class LCD3inch5:
         self.set_frame_size(w, h)
         LCD = self._MyFrame
         LCD.fill(bkgdColor)
-        fc = FontCache()
+        fc = self.fontCache()
         # fc.DrawString(text, self.buffer, 0, 0, self.width * 2)
         offset = toffset
         for i in text:
@@ -278,6 +270,5 @@ class LCD3inch5:
                 hnow = hend
 
 
-# the global object here
-_GlobalLcd = LCD3inch5()
+# _GlobalLcd = LCD3inch5()
 

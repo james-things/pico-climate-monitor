@@ -1,11 +1,12 @@
-# Resource taken directly from https://github.com/MZachmann/PicoPendant,
-# with a small modification made to the caching function
+# File currently not in use, but retained for future review.
+
+#######################
+
+# Resource from PicoPendant with modification made to the caching function
 
 # cached chars for speeding things up
 # this draws the digits into one buffer per digit
 # so they can be blitted to the output
-
-
 from fonts.fontDrawer import FontDrawer
 from framebuf import FrameBuffer, RGB565
 import gc

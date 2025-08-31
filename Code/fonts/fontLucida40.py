@@ -1,4 +1,4 @@
-# Resource taken directly from https://github.com/MZachmann/PicoPendant
+# Resource from PicoPendant
 
 # Lucida Sans Typewriter 22 support
 # this typeface has a list of descriptors and a list of pixel data (bytes)
