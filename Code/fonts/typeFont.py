@@ -1,5 +1,4 @@
-# Resource taken directly from https://github.com/MZachmann/PicoPendant
-
+# Resource from PicoPendant
 # a typefont
 
 class TypeFont :

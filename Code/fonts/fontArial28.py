@@ -1,4 +1,4 @@
-# Resource taken directly from https://github.com/MZachmann/PicoPendant
+# Resource taken directly from PicoPendant
 
 # Arial 28 support (actually 24 high)
 # see: https://medium.com/home-wireless/convert-truetype-to-bitmap-for-use-by-c-9dd8196e5c94 
